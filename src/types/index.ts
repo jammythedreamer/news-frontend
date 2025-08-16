@@ -23,6 +23,24 @@ export interface Category {
   articleCount?: number
 }
 
+export interface Keyword {
+  id: number
+  name: string
+  status: boolean
+  createdAt: string
+  updatedAt: string
+}
+
+export interface CreateKeywordDto {
+  name: string
+  status?: boolean
+}
+
+export interface UpdateKeywordDto {
+  name?: string
+  status?: boolean
+}
+
 export interface User {
   id: string
   email: string

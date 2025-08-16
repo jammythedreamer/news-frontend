@@ -1,34 +1,50 @@
 import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from './theme-toggle'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const location = useLocation()
+
+  const isActive = (path: string) => location.pathname === path
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-6">
-            <a href="/" className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-2">
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 News
               </span>
-            </a>
+            </Link>
             
             <nav className="hidden md:flex items-center gap-6">
-              <a href="/" className="text-sm font-medium transition-colors hover:text-primary">
+              <Link 
+                to="/" 
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  isActive('/') ? 'text-primary font-semibold' : ''
+                }`}
+              >
                 홈
-              </a>
-              <a href="/latest" className="text-sm font-medium transition-colors hover:text-primary">
-                최신 뉴스
-              </a>
-              <a href="/trending" className="text-sm font-medium transition-colors hover:text-primary">
-                인기 뉴스
-              </a>
-              <a href="/categories" className="text-sm font-medium transition-colors hover:text-primary">
-                카테고리
-              </a>
+              </Link>
+              <Link 
+                to="/news" 
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  isActive('/news') ? 'text-primary font-semibold' : ''
+                }`}
+              >
+                뉴스 검색
+              </Link>
+              <Link 
+                to="/keywords" 
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  isActive('/keywords') ? 'text-primary font-semibold' : ''
+                }`}
+              >
+                키워드 관리
+              </Link>
             </nav>
           </div>
 
@@ -80,18 +96,33 @@ export function Header() {
         {isMenuOpen && (
           <nav className="md:hidden border-t py-4">
             <div className="flex flex-col space-y-3">
-              <a href="/" className="text-sm font-medium transition-colors hover:text-primary">
+              <Link 
+                to="/" 
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  isActive('/') ? 'text-primary font-semibold' : ''
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
                 홈
-              </a>
-              <a href="/latest" className="text-sm font-medium transition-colors hover:text-primary">
-                최신 뉴스
-              </a>
-              <a href="/trending" className="text-sm font-medium transition-colors hover:text-primary">
-                인기 뉴스
-              </a>
-              <a href="/categories" className="text-sm font-medium transition-colors hover:text-primary">
-                카테고리
-              </a>
+              </Link>
+              <Link 
+                to="/news" 
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  isActive('/news') ? 'text-primary font-semibold' : ''
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                뉴스 검색
+              </Link>
+              <Link 
+                to="/keywords" 
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  isActive('/keywords') ? 'text-primary font-semibold' : ''
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                키워드 관리
+              </Link>
             </div>
           </nav>
         )}
