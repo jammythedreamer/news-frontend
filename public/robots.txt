@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://newsapp.example.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Disallow admin or sensitive areas (when implemented)
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*.json$
+
+# Allow specific important pages
+Allow: /
+Allow: /latest
+Allow: /trending
+Allow: /categories
+Allow: /search
