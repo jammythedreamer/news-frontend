@@ -1,13 +1,16 @@
 # Development Dockerfile - Hot reload enabled
-FROM node:20-alpine
+FROM node:22-alpine
+
+# pnpm 설치
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 WORKDIR /app
 
 # 의존성 파일만 먼저 복사 (캐싱 활용)
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml ./
 
 # 의존성 설치
-RUN npm install
+RUN pnpm install
 
 # 소스 코드는 docker-compose의 volume mount로 처리
 # hot reload를 위해 코드는 복사하지 않음
@@ -15,5 +18,5 @@ RUN npm install
 # Vite 개발 서버 포트
 EXPOSE 5173
 
-# Vite 개발 서버 실행 (모든 네트워크 인터페이스에서 접근 가능하도록 --host 옵션 추가)
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+# 개발 서버 실행 (hot reload)
+CMD ["pnpm", "run", "dev", "--host", "0.0.0.0"]
